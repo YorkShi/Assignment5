@@ -28,7 +28,7 @@ public class Selection extends Operator{
 		
 		Tuple tuple = child.next();
 		
-		if (!child.from.equals(whereTablePredicate) && !whereTablePredicate.equals("")) {
+		if (!child.from.equals(whereTablePredicate)) {
 			return tuple;
 		}
 		while (null != tuple) {

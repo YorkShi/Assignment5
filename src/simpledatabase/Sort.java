@@ -26,44 +26,38 @@ public class Sort extends Operator{
 	@Override
 	public Tuple next(){
 		if(tuplesResult.size() == 0){
+			
 			ArrayList<Tuple> tempList = new ArrayList<Tuple>(); 
-			Tuple tempTuple;
-			while(null != (tempTuple = child.next())){
-				tempList.add(tempTuple);
+			Tuple tuple = child.next();
+			
+			while(tuple != null){
+				tempList.add(tuple);
 			}
-			if(tempList.size() == 0)
+			if(tempList.isEmpty()){
 				return null;
-			ArrayList<ArrayList<Attribute>> attributeMatrix = new ArrayList<ArrayList<Attribute>>();
-			for(int i = 0; i < tempList.size(); i++)
-				attributeMatrix.add(tempList.get(i).getAttributeList());
-			int j;
-			for(j = 0; j < attributeMatrix.get(0).size(); j++){
-				if(attributeMatrix.get(0).get(j).getAttributeName().equals(orderPredicate))
-					break;
 			}
-			int min;
-			for(int k = 0; k < attributeMatrix.size(); k++){
-				min = k;
-				for(int l = k + 1; l < attributeMatrix.size(); l++){
-					if(!orderPredicate.equals("id")){
-						if(((String)attributeMatrix.get(l).get(j).getAttributeValue()).compareTo(
-								(String)attributeMatrix.get(min).get(j).getAttributeValue()) < 0)
-							min = l;
-					}else{
-						if((Integer.parseInt(attributeMatrix.get(l).get(j).getAttributeValue().toString())) < (
-								Integer.parseInt(attributeMatrix.get(min).get(j).getAttributeValue().toString())))
-							min = l;
-					}
-				}
-				Collections.swap(attributeMatrix, min, k);
+			tuple = tempList.get(0);
+			int m;
+			for(m = 0; m < tuple.getAttributeList().size(); m++) {
+				if(tuple.getAttributeName(m).equals(orderPredicate)) {
+                    break;
+                }
 			}
-			for(int m = 0; m < attributeMatrix.size(); m++){
-				tuplesResult.add(new Tuple(attributeMatrix.get(m)));
-			}
-		}
-		return tuplesResult.remove(0);
 
-		
+			while(!tempList.isEmpty()) {
+				int n = 0;
+				for(int i = 0; i < tempList.size(); i++) {
+					String tempString = tempList.get(i).getAttributeValue(m).toString();
+					String tempString1 = tempList.get(n).getAttributeValue(m).toString();
+					if(tempString.compareTo(tempString1) < 0) {
+                        n = i;
+                    }
+				}
+				tuplesResult.add(tempList.get(n));
+				tempList.remove(n);
+			}
+		}	
+		return tuplesResult.remove(0);
 	}
 	
 	/**

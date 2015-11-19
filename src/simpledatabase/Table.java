@@ -41,20 +41,26 @@ public class Table extends Operator{
 		String attributeValue;
 		try{
 			if(getAttribute != true){
-				attributeName = br.readLine();
-				attributeType = br.readLine();
-				getAttribute = true;
+					attributeName = br.readLine();
+					attributeType = br.readLine();
+					attributeValue = br.readLine();
+					// set the trigger
+					getAttribute = true;
+					// set the tuple
+					tuple = new Tuple(attributeName, attributeType, attributeValue);
+					tuple.setAttributeName();
+					tuple.setAttributeType();
+					tuple.setAttributeValue();
 			}else{
-				attributeValue = br.readLine();
-				
-				if(null == attributeValue){
-					return null;
-				}
-				
-				tuple = new Tuple(attributeName, attributeType, attributeValue);
-				tuple.setAttributeName();
-				tuple.setAttributeType();
-				tuple.setAttributeValue();
+					//if name and type has been copied
+					attributeValue = br.readLine();	
+					if(null == attributeValue){
+						return null;
+					}
+					tuple = new Tuple(attributeName, attributeType, attributeValue);
+					tuple.setAttributeName();
+					tuple.setAttributeType();
+					tuple.setAttributeValue();
 				
 			}
 	      }catch(Exception e){

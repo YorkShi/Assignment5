@@ -23,17 +23,23 @@ public class Projection extends Operator{
 	@Override
 	public Tuple next(){
 		
-		Tuple tuple1 = child.next();
+		newAttributeList.clear();
+		Tuple tuple = child.next();
+		Tuple tuple2 = null;
+		ArrayList<Attribute> attributeList;
 		
-		ArrayList<Attribute> attributeList = tuple1.getAttributeList();;
-		
-		for (int i = 0; i < attributeList.size(); i++) {
-			if (tuple1.getAttributeName(i).equals(attributePredicate)) {
-				newAttributeList.add(attributeList.get(i));					
+		if (tuple != null) {
+			attributeList = tuple.getAttributeList();
+			for (int i = 0; i < attributeList.size(); i++) {
+				if (tuple.getAttributeName(i).equals(attributePredicate)) {
+					newAttributeList.add(attributeList.get(i));					
+					tuple2 = new Tuple(newAttributeList);
+				}
 			}
+			return tuple2;
 		}
-		Tuple tuple2 = new Tuple(newAttributeList);
-		return tuple2;
+		
+		return null;
 	}
 	
 
