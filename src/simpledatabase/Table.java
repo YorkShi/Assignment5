@@ -46,23 +46,17 @@ public class Table extends Operator{
 					attributeValue = br.readLine();
 					// set the trigger
 					getAttribute = true;
-					// set the tuple
-					tuple = new Tuple(attributeName, attributeType, attributeValue);
-					tuple.setAttributeName();
-					tuple.setAttributeType();
-					tuple.setAttributeValue();
 			}else{
 					//if name and type has been copied
 					attributeValue = br.readLine();	
 					if(null == attributeValue){
 						return null;
 					}
-					tuple = new Tuple(attributeName, attributeType, attributeValue);
-					tuple.setAttributeName();
-					tuple.setAttributeType();
-					tuple.setAttributeValue();
-				
 			}
+			tuple = new Tuple(attributeName, attributeType, attributeValue);
+			tuple.setAttributeName();
+			tuple.setAttributeType();
+			tuple.setAttributeValue();
 	      }catch(Exception e){
 	         e.printStackTrace();
 	      }

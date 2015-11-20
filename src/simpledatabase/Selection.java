@@ -28,14 +28,16 @@ public class Selection extends Operator{
 		
 		Tuple tuple = child.next();
 		
-		if (!child.from.equals(whereTablePredicate)) {
+		if (child.from.equals(whereTablePredicate) != true) {
 			return tuple;
 		}
-		while (null != tuple) {
+		while (tuple != null) {
 			attributeList = tuple.getAttributeList();
 			for (int i = 0; i < attributeList.size(); i++) {
-				if (attributeList.get(i).getAttributeName().equals(whereAttributePredicate)) {
-					if (attributeList.get(i).getAttributeValue().equals(whereValuePredicate))
+				String attributeName = attributeList.get(i).getAttributeName();
+				if (attributeName.equals(whereAttributePredicate)) {
+					Object attributeValue = attributeList.get(i).getAttributeValue();
+					if (attributeValue.equals(whereValuePredicate))
 						return tuple;
 				}
 			}

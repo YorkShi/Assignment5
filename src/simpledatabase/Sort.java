@@ -25,36 +25,37 @@ public class Sort extends Operator{
      */
 	@Override
 	public Tuple next(){
+		int m,n = 0;
 		if(tuplesResult.size() == 0){
 			
-			ArrayList<Tuple> tempList = new ArrayList<Tuple>(); 
+			ArrayList<Tuple> tupleList = new ArrayList<Tuple>(); 
 			Tuple tuple = child.next();
 			
 			while(tuple != null){
-				tempList.add(tuple);
+				tupleList.add(tuple);
 			}
-			if(tempList.isEmpty()){
-				return null;
-			}
-			tuple = tempList.get(0);
-			int m;
+			tuple = tupleList.get(0);
+			
+		
 			for(m = 0; m < tuple.getAttributeList().size(); m++) {
 				if(tuple.getAttributeName(m).equals(orderPredicate)) {
                     break;
                 }
 			}
 
-			while(!tempList.isEmpty()) {
-				int n = 0;
-				for(int i = 0; i < tempList.size(); i++) {
-					String tempString = tempList.get(i).getAttributeValue(m).toString();
-					String tempString1 = tempList.get(n).getAttributeValue(m).toString();
+			while(tupleList.isEmpty()!=true) {
+				
+				for(int i = 0; i < tupleList.size(); i++) {
+					
+					String tempString = tupleList.get(i).getAttributeValue(m).toString();
+					String tempString1 = tupleList.get(n).getAttributeValue(m).toString();
+		
 					if(tempString.compareTo(tempString1) < 0) {
                         n = i;
                     }
 				}
-				tuplesResult.add(tempList.get(n));
-				tempList.remove(n);
+				tuplesResult.add(tupleList.get(n));
+				tupleList.remove(n);
 			}
 		}	
 		return tuplesResult.remove(0);
