@@ -25,39 +25,44 @@ public class Sort extends Operator{
      */
 	@Override
 	public Tuple next(){
-		int m,n = 0;
-		if(tuplesResult.size() == 0){
+		if (tuplesResult.size()==0) {
 			
-			ArrayList<Tuple> tupleList = new ArrayList<Tuple>(); 
+			ArrayList<Tuple> tupleList = new ArrayList<Tuple>();
+            int n;
 			Tuple tuple = child.next();
 			
-			while(tuple != null){
-				tupleList.add(tuple);
-			}
-			tuple = tupleList.get(0);
 			
-		
-			for(m = 0; m < tuple.getAttributeList().size(); m++) {
-				if(tuple.getAttributeName(m).equals(orderPredicate)) {
+			while (null != tuple) {
+				tupleList.add(tuple);
+				tuple = child.next();
+			}
+
+			if(tupleList.isEmpty()) 
+                return null;
+            
+
+			tuple = tupleList.get(0);
+			//find the index
+			for(n = 0; n < tuple.getAttributeList().size(); n++) {
+				if(tuple.getAttributeName(n).equals(orderPredicate)) {
                     break;
                 }
 			}
 
-			while(tupleList.isEmpty()!=true) {
-				
+			while(!tupleList.isEmpty()) {
+				int m = 0;
 				for(int i = 0; i < tupleList.size(); i++) {
-					
-					String tempString = tupleList.get(i).getAttributeValue(m).toString();
-					String tempString1 = tupleList.get(n).getAttributeValue(m).toString();
-		
+					String tempString = tupleList.get(i).getAttributeValue(n).toString();
+					String tempString1 = tupleList.get(m).getAttributeValue(n).toString();
 					if(tempString.compareTo(tempString1) < 0) {
-                        n = i;
+						//reset the index 
+                        m = i;
                     }
 				}
-				tuplesResult.add(tupleList.get(n));
-				tupleList.remove(n);
+				tuplesResult.add(tupleList.get(m));
+				tupleList.remove(m);
 			}
-		}	
+		}
 		return tuplesResult.remove(0);
 	}
 	

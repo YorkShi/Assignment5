@@ -10,6 +10,8 @@ public class Table extends Operator{
 	private BufferedReader br = null;
 	private boolean getAttribute=false;
 	private Tuple tuple;
+	private String attributeName = null;
+	private String attributeType = null;
 
 	
 	public Table(String from){
@@ -36,8 +38,7 @@ public class Table extends Operator{
 	public Tuple next(){
 		ArrayList<Attribute> attributeList = new ArrayList<Attribute>(); 
 		Tuple tuple = null;
-		String attributeName = null;
-		String attributeType = null;
+		
 		String attributeValue;
 		try{
 			if(getAttribute != true){
