@@ -1,8 +1,7 @@
-# SQL-Virtual-Machine-Assignment5
-
-COMP2011 Object-Oriented Programming Fall 2015
+# SQL-Virtual-Machine
 
 Yuanjing Shi 
-13104584d
 
-This is a final project of the course, in which we need to use JAVA to realize multifeatures virtual machine of Basic SQL commands 
+This is a final project of object oriented subject of PolyU, in which we need to use Java to build a multi-feature virtual machine of Basic SQL commands.
+
+By Prof. Eric Lo
